@@ -1,5 +1,5 @@
 {
-    "name": "kuma-guy/jwt-authentication",
+    "name": "kuma-guy/jwt-authentication-module",
     "description": "JWT authentication module for BEAR.Sunday",
     "keywords": [
         "JWT",
