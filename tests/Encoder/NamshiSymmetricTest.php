@@ -3,20 +3,20 @@
 namespace BEAR\JwtAuthentication\Encoder;
 
 use BEAR\JwtAuthentication\Exception\InvalidTokenException;
-use BEAR\JwtAuthentication\JwtAuthenticationModule;
+use BEAR\JwtAuthentication\SymmetricJwtAuthenticationModule;
 use Ray\Di\Injector;
 
 class NamshiSymmetricTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Namshi
+     * @var JwtEncoderInterface
      */
     private $jwtEncoder;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->jwtEncoder = (new Injector(new JwtAuthenticationModule('HS256', 86400, 'example_secret')))->getInstance(JwtEncoderInterface::class);
+        $this->jwtEncoder = (new Injector(new SymmetricJwtAuthenticationModule('HS256', 86400, 'example_secret')))->getInstance(JwtEncoderInterface::class);
     }
 
     /**
@@ -24,8 +24,8 @@ class NamshiSymmetricTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnValidToken()
     {
-        $this->payload = ['userid' => 1, 'username' => 'admin', 'iat' => 1353601026, 'exp' => 1353604926];
-        $token = $this->jwtEncoder->encode($this->payload);
+        $payload = ['userid' => 1, 'username' => 'admin', 'iat' => 1353601026, 'exp' => 1353604926];
+        $token = $this->jwtEncoder->encode($payload);
 
         return $token;
     }
@@ -50,7 +50,6 @@ class NamshiSymmetricTest extends \PHPUnit_Framework_TestCase
     public function shouldThrowInvalidTokenException()
     {
         $this->expectException(InvalidTokenException::class);
-        $token = 'invalid_token';
-        $this->jwtEncoder->decode($token);
+        $this->jwtEncoder->decode('invalid_token');
     }
 }

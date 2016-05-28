@@ -3,7 +3,7 @@
 namespace BEAR\JwtAuthentication\Generator;
 
 use BEAR\JwtAuthentication\Encoder\JwtEncoderInterface;
-use BEAR\JwtAuthentication\JwtAuthenticationModule;
+use BEAR\JwtAuthentication\SymmetricJwtAuthenticationModule;
 use Ray\Di\Injector;
 
 class JwtGeneratorTest extends \PHPUnit_Framework_TestCase
@@ -21,7 +21,7 @@ class JwtGeneratorTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $injector = (new Injector(new JwtAuthenticationModule('HS256', 86400, 'example_secret')));
+        $injector = (new Injector(new SymmetricJwtAuthenticationModule('HS256', 86400, 'example_secret')));
         $this->jwtGenerator = $injector->getInstance(JwtGeneratorInterface::class);
         $this->jwtEncoder = $injector->getInstance(JwtEncoderInterface::class);
     }
