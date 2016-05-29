@@ -25,9 +25,6 @@ class AuthProvider implements ProviderInterface
      */
     private $jwtEncoder;
 
-    /**
-     * @Named("tokenExtractor=cookie")
-     */
     public function __construct(TokenExtractorInterface $tokenExtractor, JwtEncoderInterface $jwtEncoder)
     {
         $this->tokenExtractor = $tokenExtractor;
