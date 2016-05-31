@@ -1,14 +1,14 @@
 <?php
 
 /**
- * This file is part of the BEAR.JwtAuthenticationModule package.
+ * This file is part of the BEAR.JwtAuthModule package.
  *
  * @license http://opensource.org/licenses/MIT MIT
  */
-namespace BEAR\JwtAuthentication\Extractor;
+namespace BEAR\JwtAuth\Extractor;
 
 use Aura\Web\Request;
-use BEAR\JwtAuthentication\Annotation\Cookie;
+use BEAR\JwtAuth\Annotation\Cookie;
 
 class CookieTokenExtractor implements TokenExtractorInterface
 {

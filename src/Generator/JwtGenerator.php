@@ -1,14 +1,14 @@
 <?php
 
 /**
- * This file is part of the BEAR.JwtAuthenticationModule package.
+ * This file is part of the BEAR.JwtAuthModule package.
  *
  * @license http://opensource.org/licenses/MIT MIT
  */
-namespace BEAR\JwtAuthentication\Generator;
+namespace BEAR\JwtAuth\Generator;
 
-use BEAR\JwtAuthentication\Annotation\Ttl;
-use BEAR\JwtAuthentication\Encoder\JwtEncoderInject;
+use BEAR\JwtAuth\Annotation\Ttl;
+use BEAR\JwtAuth\Encoder\JwtEncoderInject;
 
 class JwtGenerator implements JwtGeneratorInterface
 {
