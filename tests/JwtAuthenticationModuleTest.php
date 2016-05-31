@@ -1,19 +1,19 @@
 <?php
 
-namespace BEAR\JwtAuthentication;
+namespace BEAR\JwtAuth;
 
-use BEAR\JwtAuthentication\Encoder\JwtEncoderInterface;
-use BEAR\JwtAuthentication\Encoder\NamshiAsymmetric;
-use BEAR\JwtAuthentication\Encoder\NamshiSymmetric;
-use BEAR\JwtAuthentication\Extractor\AuthorizationHeaderTokenExtractor;
-use BEAR\JwtAuthentication\Extractor\CookieTokenExtractor;
-use BEAR\JwtAuthentication\Extractor\QueryParameterTokenExtractor;
-use BEAR\JwtAuthentication\Extractor\TokenExtractorInterface;
-use BEAR\JwtAuthentication\Generator\JwtGenerator;
-use BEAR\JwtAuthentication\Generator\JwtGeneratorInterface;
+use BEAR\JwtAuth\Encoder\JwtEncoderInterface;
+use BEAR\JwtAuth\Encoder\NamshiAsymmetric;
+use BEAR\JwtAuth\Encoder\NamshiSymmetric;
+use BEAR\JwtAuth\Extractor\AuthorizationHeaderTokenExtractor;
+use BEAR\JwtAuth\Extractor\CookieTokenExtractor;
+use BEAR\JwtAuth\Extractor\QueryParameterTokenExtractor;
+use BEAR\JwtAuth\Extractor\TokenExtractorInterface;
+use BEAR\JwtAuth\Generator\JwtGenerator;
+use BEAR\JwtAuth\Generator\JwtGeneratorInterface;
 use Ray\Di\Injector;
 
-class JwtAuthenticationModuleTest extends \PHPUnit_Framework_TestCase
+class JwtAuthModuleTest extends \PHPUnit_Framework_TestCase
 {
     public function testAsymmetricModule()
     {
@@ -22,7 +22,7 @@ class JwtAuthenticationModuleTest extends \PHPUnit_Framework_TestCase
             'public' => file_get_contents(__DIR__ . '/Encoder/public-key.pem'),
             'passphrase' => 'sample_passphrase'
         ];
-        $injector = (new Injector(new AsymmetricJwtAuthenticationModule('RS256', 86400, $key)));
+        $injector = (new Injector(new AsymmetricJwtAuthModule('RS256', 86400, $key)));
 
         $jwtGenerator = $injector->getInstance(JwtGeneratorInterface::class);
         $this->assertInstanceOf(JwtGenerator::class, $jwtGenerator);
@@ -37,7 +37,7 @@ class JwtAuthenticationModuleTest extends \PHPUnit_Framework_TestCase
 
     public function testSymmetricModule()
     {
-        $injector = (new Injector(new SymmetricJwtAuthenticationModule('HS256', 86400, 'example_secret')));
+        $injector = (new Injector(new SymmetricJwtAuthModule('HS256', 86400, 'example_secret')));
 
         $jwtGenerator = $injector->getInstance(JwtGeneratorInterface::class);
         $this->assertInstanceOf(JwtGenerator::class, $jwtGenerator);

@@ -1,15 +1,15 @@
 <?php
 
 /**
- * This file is part of the BEAR.JwtAuthenticationModule package.
+ * This file is part of the BEAR.JwtAuthModule package.
  *
  * @license http://opensource.org/licenses/MIT MIT
  */
-namespace BEAR\JwtAuthentication\Auth;
+namespace BEAR\JwtAuth\Auth;
 
-use BEAR\JwtAuthentication\Encoder\JwtEncoderInterface;
-use BEAR\JwtAuthentication\Exception\InvalidTokenException;
-use BEAR\JwtAuthentication\Extractor\TokenExtractorInterface;
+use BEAR\JwtAuth\Encoder\JwtEncoderInterface;
+use BEAR\JwtAuth\Exception\InvalidTokenException;
+use BEAR\JwtAuth\Extractor\TokenExtractorInterface;
 use Ray\Di\Di\Named;
 use Ray\Di\ProviderInterface;
 

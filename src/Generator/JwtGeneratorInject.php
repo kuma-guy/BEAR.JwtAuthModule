@@ -1,11 +1,11 @@
 <?php
 
 /**
- * This file is part of the BEAR.JwtAuthenticationModule package.
+ * This file is part of the BEAR.JwtAuthModule package.
  *
  * @license http://opensource.org/licenses/MIT MIT
  */
-namespace BEAR\JwtAuthentication\Generator;
+namespace BEAR\JwtAuth\Generator;
 
 trait JwtGeneratorInject
 {

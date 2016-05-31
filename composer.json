@@ -1,5 +1,5 @@
 {
-    "name": "kuma-guy/jwt-authentication",
+    "name": "kuma-guy/jwt-auth-module",
     "description": "JWT authentication module for BEAR.Sunday",
     "keywords": [
         "JWT",
@@ -24,13 +24,13 @@
     },
     "autoload": {
         "psr-4": {
-            "BEAR\\JwtAuthentication\\": "src/"
+            "BEAR\\JwtAuth\\": "src/"
         },
         "files": ["doctrine_annotations.php"]
     },
     "autoload-dev": {
         "psr-4": {
-            "BEAR\\JwtAuthentication\\": [
+            "BEAR\\JwtAuth\\": [
                 "tests/"
             ]
         }

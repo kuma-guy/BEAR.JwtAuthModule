@@ -1,9 +1,9 @@
 <?php
 
-namespace BEAR\JwtAuthentication\Encoder;
+namespace BEAR\JwtAuth\Encoder;
 
-use BEAR\JwtAuthentication\AsymmetricJwtAuthenticationModule;
-use BEAR\JwtAuthentication\Exception\InvalidTokenException;
+use BEAR\JwtAuth\AsymmetricJwtAuthModule;
+use BEAR\JwtAuth\Exception\InvalidTokenException;
 use Ray\Di\Injector;
 
 class NamshiAsymmetricTest extends \PHPUnit_Framework_TestCase
@@ -21,7 +21,7 @@ class NamshiAsymmetricTest extends \PHPUnit_Framework_TestCase
             'public' => file_get_contents(__DIR__ . '/public-key.pem'),
             'passphrase' => 'sample_passphrase'
         ];
-        $this->jwtEncoder = (new Injector(new AsymmetricJwtAuthenticationModule('RS256', 86400, $key)))->getInstance(JwtEncoderInterface::class);
+        $this->jwtEncoder = (new Injector(new AsymmetricJwtAuthModule('RS256', 86400, $key)))->getInstance(JwtEncoderInterface::class);
     }
 
     /**

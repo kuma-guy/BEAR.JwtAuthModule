@@ -1,9 +1,9 @@
 <?php
 
-namespace BEAR\JwtAuthentication\Encoder;
+namespace BEAR\JwtAuth\Encoder;
 
-use BEAR\JwtAuthentication\Exception\InvalidTokenException;
-use BEAR\JwtAuthentication\SymmetricJwtAuthenticationModule;
+use BEAR\JwtAuth\Exception\InvalidTokenException;
+use BEAR\JwtAuth\SymmetricJwtAuthModule;
 use Ray\Di\Injector;
 
 class NamshiSymmetricTest extends \PHPUnit_Framework_TestCase
@@ -16,7 +16,7 @@ class NamshiSymmetricTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->jwtEncoder = (new Injector(new SymmetricJwtAuthenticationModule('HS256', 86400, 'example_secret')))->getInstance(JwtEncoderInterface::class);
+        $this->jwtEncoder = (new Injector(new SymmetricJwtAuthModule('HS256', 86400, 'example_secret')))->getInstance(JwtEncoderInterface::class);
     }
 
     /**

@@ -1,16 +1,16 @@
 <?php
 
 /**
- * This file is part of the BEAR.JwtAuthenticationModule package.
+ * This file is part of the BEAR.JwtAuthModule package.
  *
  * @license http://opensource.org/licenses/MIT MIT
  */
-namespace BEAR\JwtAuthentication\Encoder;
+namespace BEAR\JwtAuth\Encoder;
 
-use BEAR\JwtAuthentication\Annotation\Algo;
-use BEAR\JwtAuthentication\Annotation\Keys;
-use BEAR\JwtAuthentication\Exception\InvalidTokenException;
-use BEAR\JwtAuthentication\Exception\JwtException;
+use BEAR\JwtAuth\Annotation\Algo;
+use BEAR\JwtAuth\Annotation\Keys;
+use BEAR\JwtAuth\Exception\InvalidTokenException;
+use BEAR\JwtAuth\Exception\JwtException;
 use Namshi\JOSE\JWS;
 
 class NamshiAsymmetric implements JwtEncoderInterface
