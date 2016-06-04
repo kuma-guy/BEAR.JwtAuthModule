@@ -14,6 +14,7 @@ use BEAR\JwtAuth\Extractor\AuthorizationHeaderTokenExtractor;
 use BEAR\JwtAuth\Extractor\CookieTokenExtractor;
 use BEAR\JwtAuth\Extractor\QueryParameterTokenExtractor;
 use BEAR\JwtAuth\Extractor\TokenExtractorInterface;
+use Ray\AuraWebModule\AuraWebModule;
 use Ray\Di\AbstractModule;
 use Ray\Di\Scope;
 
@@ -42,6 +43,8 @@ class TokenExtractorModule extends AbstractModule
 
     protected function configure()
     {
+        $this->install(new AuraWebModule());
+
         $this->bind()->annotatedWith(Header::class)->toInstance($this->header);
         $this->bind()->annotatedWith(Cookie::class)->toInstance($this->cookie);
         $this->bind()->annotatedWith(QueryParam::class)->toInstance($this->queryParam);
