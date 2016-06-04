@@ -16,7 +16,6 @@ use BEAR\JwtAuth\Encoder\JwtEncoderInterface;
 use BEAR\JwtAuth\Encoder\NamshiSymmetric;
 use BEAR\JwtAuth\Generator\JwtGenerator;
 use BEAR\JwtAuth\Generator\JwtGeneratorInterface;
-use Ray\AuraWebModule\AuraWebModule;
 use Ray\Di\AbstractModule;
 use Ray\Di\Scope;
 
@@ -51,7 +50,6 @@ class SymmetricJwtAuthModule extends AbstractModule
 
     protected function configure()
     {
-        $this->install(new AuraWebModule());
         $this->install(new TokenExtractorModule());
 
         $this->bind()->annotatedWith(Algo::class)->toInstance($this->algo);
