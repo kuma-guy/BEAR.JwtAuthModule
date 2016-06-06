@@ -12,12 +12,10 @@ class AsymmetricJwtAuthModuleTest extends \PHPUnit_Framework_TestCase
 {
     public function testAsymmetricModule()
     {
-        $key = [
-            'private' => file_get_contents(__DIR__ . '/Encoder/private-key.pem'),
-            'public' => file_get_contents(__DIR__ . '/Encoder/public-key.pem'),
-            'passphrase' => 'sample_passphrase'
-        ];
-        $injector = (new Injector(new AsymmetricJwtAuthModule('RS256', 86400, $key)));
+        $privateKey = file_get_contents(__DIR__ . '/Encoder/private-key.pem');
+        $publicKey = file_get_contents(__DIR__ . '/Encoder/public-key.pem');
+        $passPhrase = 'sample_passphrase';
+        $injector = (new Injector(new AsymmetricJwtAuthModule('RS256', 86400, $privateKey, $publicKey, $passPhrase)));
 
         $jwtGenerator = $injector->getInstance(JwtGeneratorInterface::class);
         $this->assertInstanceOf(JwtGenerator::class, $jwtGenerator);

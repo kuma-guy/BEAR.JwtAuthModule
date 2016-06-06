@@ -8,7 +8,9 @@
 namespace BEAR\JwtAuth;
 
 use BEAR\JwtAuth\Annotation\Algo;
-use BEAR\JwtAuth\Annotation\Keys;
+use BEAR\JwtAuth\Annotation\PassPhrase;
+use BEAR\JwtAuth\Annotation\PrivateKey;
+use BEAR\JwtAuth\Annotation\PublicKey;
 use BEAR\JwtAuth\Annotation\Ttl;
 use BEAR\JwtAuth\Auth\Auth;
 use BEAR\JwtAuth\Auth\AuthProvider;
@@ -32,20 +34,34 @@ class AsymmetricJwtAuthModule extends AbstractModule
     private $ttl;
 
     /**
-     * @var array
+     * @var string
      */
-    private $keys;
+    private $privateKey;
 
     /**
-     * @param string $algo   Hashing algorithm
-     * @param int    $ttl    Time to live
-     * @param array  $keys   Used for asymmetric algorithms
+     * @var string
      */
-    public function __construct(string $algo, int $ttl, array $keys = [])
+    private $publicKey;
+
+    /**
+     * @var string
+     */
+    private $passPhrase;
+
+    /**
+     * @param string $algo       Hashing algorithm
+     * @param int    $ttl        Time to live for JWT
+     * @param string $privateKey Private key
+     * @param string $publicKey  Public key
+     * @param string $passPhrase Pass phrase
+     */
+    public function __construct(string $algo, int $ttl, string $privateKey, string $publicKey, string $passPhrase)
     {
         $this->algo = $algo;
         $this->ttl = $ttl;
-        $this->keys = $keys;
+        $this->privateKey = $privateKey;
+        $this->publicKey = $publicKey;
+        $this->passPhrase = $passPhrase;
     }
 
     protected function configure()
@@ -54,7 +70,9 @@ class AsymmetricJwtAuthModule extends AbstractModule
 
         $this->bind()->annotatedWith(Algo::class)->toInstance($this->algo);
         $this->bind()->annotatedWith(Ttl::class)->toInstance($this->ttl);
-        $this->bind()->annotatedWith(Keys::class)->toInstance($this->keys);
+        $this->bind()->annotatedWith(PrivateKey::class)->toInstance($this->privateKey);
+        $this->bind()->annotatedWith(PublicKey::class)->toInstance($this->publicKey);
+        $this->bind()->annotatedWith(PassPhrase::class)->toInstance($this->passPhrase);
 
         $this->bind(JwtGeneratorInterface::class)->to(JwtGenerator::class)->in(Scope::SINGLETON);
         $this->bind(JwtEncoderInterface::class)->to(NamshiAsymmetric::class)->in(Scope::SINGLETON);

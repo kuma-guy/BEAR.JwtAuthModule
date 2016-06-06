@@ -14,7 +14,7 @@ use Ray\Di\Di\Qualifier;
  * @Target("METHOD")
  * @Qualifier
  */
-final class Keys
+final class PublicKey
 {
     public $value;
 }

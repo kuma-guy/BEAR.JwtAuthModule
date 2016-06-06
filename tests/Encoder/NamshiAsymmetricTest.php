@@ -16,12 +16,10 @@ class NamshiAsymmetricTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $key = [
-            'private' => file_get_contents(__DIR__ . '/private-key.pem'),
-            'public' => file_get_contents(__DIR__ . '/public-key.pem'),
-            'passphrase' => 'sample_passphrase'
-        ];
-        $this->jwtEncoder = (new Injector(new AsymmetricJwtAuthModule('RS256', 86400, $key)))->getInstance(JwtEncoderInterface::class);
+        $privateKey = file_get_contents(__DIR__ . '/private-key.pem');
+        $publicKey = file_get_contents(__DIR__ . '/public-key.pem');
+        $passPhrase = 'sample_passphrase';
+        $this->jwtEncoder = (new Injector(new AsymmetricJwtAuthModule('RS256', 86400, $privateKey, $publicKey, $passPhrase)))->getInstance(JwtEncoderInterface::class);
     }
 
     /**

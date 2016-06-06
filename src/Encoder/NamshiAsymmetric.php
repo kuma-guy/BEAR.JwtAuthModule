@@ -8,7 +8,9 @@
 namespace BEAR\JwtAuth\Encoder;
 
 use BEAR\JwtAuth\Annotation\Algo;
-use BEAR\JwtAuth\Annotation\Keys;
+use BEAR\JwtAuth\Annotation\PassPhrase;
+use BEAR\JwtAuth\Annotation\PrivateKey;
+use BEAR\JwtAuth\Annotation\PublicKey;
 use BEAR\JwtAuth\Exception\InvalidTokenException;
 use BEAR\JwtAuth\Exception\JwtException;
 use Namshi\JOSE\JWS;
@@ -26,25 +28,39 @@ class NamshiAsymmetric implements JwtEncoderInterface
     private $algo;
 
     /**
-     * @var array
+     * @var string
      */
-    private $keys;
+    private $privateKey;
+
+    /**
+     * @var string
+     */
+    private $publicKey;
+
+    /**
+     * @var string
+     */
+    private $passPhrase;
 
     /**
      * @Algo("algo")
-     * @Keys("keys")
+     * @PrivateKey("privateKey")
+     * @PublicKey("publicKey")
+     * @PassPhrase("passPhrase")
      */
-    public function __construct(string $algo, array $keys)
+    public function __construct(string $algo, string $privateKey, string $publicKey, string $passPhrase)
     {
         $this->jws = new JWS(['typ' => 'JWT', 'alg' => $algo]);
         $this->algo = $algo;
-        $this->keys = $keys;
+        $this->privateKey = $privateKey;
+        $this->publicKey = $publicKey;
+        $this->passPhrase = $passPhrase;
     }
 
     public function encode(array $payload) : string
     {
         try {
-            $this->jws->setPayload($payload)->sign($this->keys['private'], $this->keys['passphrase']);
+            $this->jws->setPayload($payload)->sign($this->privateKey, $this->passPhrase);
 
             return (string) $this->jws->getTokenString();
         } catch (Exception $e) {
@@ -60,7 +76,7 @@ class NamshiAsymmetric implements JwtEncoderInterface
             throw new InvalidTokenException($e->getMessage());
         }
 
-        if (!$jws->verify($this->keys['public'], $this->algo)) {
+        if (!$jws->verify($this->publicKey, $this->algo)) {
             throw new InvalidTokenException('Invalid Token');
         }
 
