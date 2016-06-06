@@ -2,7 +2,7 @@
 
 namespace BEAR\JwtAuth\Extractor;
 
-use BEAR\JwtAuth\SymmetricJwtAuthModule;
+use BEAR\JwtAuth\TokenExtractorModule;
 use Ray\Di\Injector;
 
 class AuthorizationHeaderTokenExtractorTest extends \PHPUnit_Framework_TestCase
@@ -13,7 +13,7 @@ class AuthorizationHeaderTokenExtractorTest extends \PHPUnit_Framework_TestCase
     public function shouldExtractToken()
     {
         $_SERVER['HTTP_AUTHORIZATION'] = 'Bearer example_token';
-        $tokenExtractor = (new Injector(new SymmetricJwtAuthModule('HS256', 86400, 'example_secret')))->getInstance(TokenExtractorInterface::class);
+        $tokenExtractor = (new Injector(new TokenExtractorModule()))->getInstance(TokenExtractorInterface::class);
 
         $token = $tokenExtractor->extract();
         $this->assertSame('example_token', $token);
@@ -25,7 +25,7 @@ class AuthorizationHeaderTokenExtractorTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnNullCharacter()
     {
         $_SERVER['HTTP_AUTHORIZATION'] = 'Bear example_token';
-        $tokenExtractor = (new Injector(new SymmetricJwtAuthModule('HS256', 86400, 'example_secret')))->getInstance(TokenExtractorInterface::class);
+        $tokenExtractor = (new Injector(new TokenExtractorModule()))->getInstance(TokenExtractorInterface::class);
 
         $token = $tokenExtractor->extract();
         $this->assertSame('', $token);
