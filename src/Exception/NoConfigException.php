@@ -7,6 +7,6 @@
  */
 namespace BEAR\JwtAuth\Exception;
 
-class NoConfigException extends \RuntimeException implements ExceptionInterface
+class NoConfigException extends \LogicException implements ExceptionInterface
 {
 }

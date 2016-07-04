@@ -4,6 +4,7 @@ namespace BEAR\JwtAuth;
 
 use BEAR\JwtAuth\Encoder\JwtEncoderInterface;
 use BEAR\JwtAuth\Encoder\NamshiSymmetric;
+use BEAR\JwtAuth\Exception\NoConfigException;
 use BEAR\JwtAuth\Generator\JwtGenerator;
 use BEAR\JwtAuth\Generator\JwtGeneratorInterface;
 use Ray\Di\Injector;
@@ -19,5 +20,11 @@ class SymmetricJwtAuthModuleTest extends \PHPUnit_Framework_TestCase
 
         $jwtEncoder = $injector->getInstance(JwtEncoderInterface::class);
         $this->assertInstanceOf(NamshiSymmetric::class, $jwtEncoder);
+    }
+
+    public function testWithNoConfig()
+    {
+        $this->setExpectedException(NoConfigException::class);
+        $this->injector = (new Injector(new SymmetricJwtAuthModule('', -1, '')));
     }
 }

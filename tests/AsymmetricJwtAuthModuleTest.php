@@ -2,8 +2,10 @@
 
 namespace BEAR\JwtAuth;
 
+use Aura\Web\Exception;
 use BEAR\JwtAuth\Encoder\JwtEncoderInterface;
 use BEAR\JwtAuth\Encoder\NamshiAsymmetric;
+use BEAR\JwtAuth\Exception\NoConfigException;
 use BEAR\JwtAuth\Generator\JwtGenerator;
 use BEAR\JwtAuth\Generator\JwtGeneratorInterface;
 use Ray\Di\Injector;
@@ -22,5 +24,11 @@ class AsymmetricJwtAuthModuleTest extends \PHPUnit_Framework_TestCase
 
         $jwtEncoder = $injector->getInstance(JwtEncoderInterface::class);
         $this->assertInstanceOf(NamshiAsymmetric::class, $jwtEncoder);
+    }
+
+    public function testWithNoConfig()
+    {
+        $this->setExpectedException(NoConfigException::class);
+        $this->injector = (new Injector(new AsymmetricJwtAuthModule('', -1, '', '', '')));
     }
 }
