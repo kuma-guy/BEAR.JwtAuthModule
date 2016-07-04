@@ -14,6 +14,7 @@ use BEAR\JwtAuth\Auth\Auth;
 use BEAR\JwtAuth\Auth\AuthProvider;
 use BEAR\JwtAuth\Encoder\JwtEncoderInterface;
 use BEAR\JwtAuth\Encoder\NamshiSymmetric;
+use BEAR\JwtAuth\Exception\NoConfigException;
 use BEAR\JwtAuth\Generator\JwtGenerator;
 use BEAR\JwtAuth\Generator\JwtGeneratorInterface;
 use Ray\Di\AbstractModule;
@@ -41,8 +42,14 @@ class SymmetricJwtAuthModule extends AbstractModule
      * @param int    $ttl    Time to live
      * @param string $secret Used for symmetric algorithms
      */
-    public function __construct(string $algo, int $ttl, string $secret = '')
+    public function __construct(string $algo, int $ttl, string $secret)
     {
+        if ($algo == ''
+            || $ttl < 0
+            || $secret == '') {
+            throw new NoConfigException;
+        }
+
         $this->algo = $algo;
         $this->ttl = $ttl;
         $this->secret = $secret;

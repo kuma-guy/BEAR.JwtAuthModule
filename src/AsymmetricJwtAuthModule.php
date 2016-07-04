@@ -16,6 +16,7 @@ use BEAR\JwtAuth\Auth\Auth;
 use BEAR\JwtAuth\Auth\AuthProvider;
 use BEAR\JwtAuth\Encoder\JwtEncoderInterface;
 use BEAR\JwtAuth\Encoder\NamshiAsymmetric;
+use BEAR\JwtAuth\Exception\NoConfigException;
 use BEAR\JwtAuth\Generator\JwtGenerator;
 use BEAR\JwtAuth\Generator\JwtGeneratorInterface;
 use Ray\Di\AbstractModule;
@@ -57,6 +58,14 @@ class AsymmetricJwtAuthModule extends AbstractModule
      */
     public function __construct(string $algo, int $ttl, string $privateKey, string $publicKey, string $passPhrase)
     {
+        if ($algo == ''
+            || $ttl < 0
+            || $privateKey == ''
+            || $privateKey == ''
+            || $passPhrase == '') {
+            throw new NoConfigException;
+        }
+
         $this->algo = $algo;
         $this->ttl = $ttl;
         $this->privateKey = $privateKey;
